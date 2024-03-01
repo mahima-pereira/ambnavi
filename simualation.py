@@ -64,3 +64,79 @@ gap2 = 15
 
 pygame.init()
 simulation = pygame.sprite.Group()
+
+
+class TrafficSignal:
+    def __init__(self, red, yellow, green, minimum, maximum):
+        self.red = red
+        self.yellow = yellow
+        self.green = green
+        self.minimum = minimum
+        self.maximum = maximum
+        self.signalText = "30"
+        self.totalGreenTime = 0
+
+
+class Vehicle(pygame.sprite.Sprite):
+    def __init__(self, lane, vehicleClass, direction_number, direction, will_turn):
+        pygame.sprite.Sprite.__init__(self)
+        self.lane = lane
+        self.vehicleClass = vehicleClass
+        self.speed = speeds[vehicleClass]
+        self.direction_number = direction_number
+        self.direction = direction
+        self.x = x[direction][lane]
+        self.y = y[direction][lane]
+        self.crossed = 0
+        self.willTurn = will_turn
+        self.turned = 0
+        self.rotateAngle = 0
+        vehicles[direction][lane].append(self)
+
+        self.index = len(vehicles[direction][lane]) - 1
+        path = "images/" + direction + "/" + vehicleClass + ".png"
+        self.originalImage = pygame.image.load(path)
+        self.currentImage = pygame.image.load(path)
+
+        if direction == 'right':
+            if len(vehicles[direction][lane]) > 1 and vehicles[direction][lane][self.index - 1].crossed == 0:
+                self.stop = vehicles[direction][lane][self.index - 1].stop - \
+                            vehicles[direction][lane][self.index - 1].currentImage.get_rect().width - gap
+            else:
+                self.stop = defaultStop[direction]
+
+            temp = self.currentImage.get_rect().width + gap
+            x[direction][lane] -= temp
+            stops[direction][lane] -= temp
+
+        elif direction == 'left':
+            if len(vehicles[direction][lane]) > 1 and vehicles[direction][lane][self.index - 1].crossed == 0:
+                self.stop = vehicles[direction][lane][self.index - 1].stop + \
+                            vehicles[direction][lane][self.index - 1].currentImage.get_rect().width + gap
+            else:
+                self.stop = defaultStop[direction]
+
+            temp = self.currentImage.get_rect().width + gap
+            x[direction][lane] += temp
+            stops[direction][lane] += temp
+
+        elif direction == 'down':
+            if len(vehicles[direction][lane]) > 1 and vehicles[direction][lane][self.index - 1].crossed == 0:
+                self.stop = vehicles[direction][lane][self.index - 1].stop - \
+                            vehicles[direction][lane][self.index - 1].currentImage.get_rect().height - gap
+            else:
+                self.stop = defaultStop[direction]
+
+            temp = self.currentImage.get_rect().height + gap
+            y[direction][lane] -= temp
+            stops[direction][lane] -= temp
+
+        elif direction == 'up':
+            if len(vehicles[direction][lane]) > 1 and vehicles[direction][lane][self.index - 1].crossed == 0:
+                self.stop = vehicles[direction][lane][self.index - 1].stop + \
+                            vehicles[direction][lane][self.index - 1].currentImage.get_rect().height + gap
+            else:
+                self.stop = defaultStop[direction]
+
+            temp = self.currentImage.get
+
