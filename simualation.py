@@ -26,6 +26,7 @@ bikeTime = 1
 rickshawTime = 2.25
 busTime = 2.5
 truckTime = 2.5
+ambulance = 3.0
 
 noOfCars = 0
 noOfBikes = 0
@@ -33,6 +34,8 @@ noOfBuses = 0
 noOfTrucks = 0
 noOfRickshaws = 0
 noOfLanes = 2
+noofambulance = 0
+
 
 detectionTime = 5
 
@@ -43,7 +46,7 @@ y = {'right': [348, 370, 398], 'down': [0, 0, 0], 'left': [498, 466, 436], 'up':
 
 vehicles = {'right': {0: [], 1: [], 2: [], 'crossed': 0}, 'down': {0: [], 1: [], 2: [], 'crossed': 0},
             'left': {0: [], 1: [], 2: [], 'crossed': 0}, 'up': {0: [], 1: [], 2: [], 'crossed': 0}}
-vehicleTypes = {0: 'car', 1: 'bus', 2: 'truck', 3: 'rickshaw', 4: 'bike'}
+vehicleTypes = {0: 'car', 1: 'bus', 2: 'truck', 3: 'rickshaw', 4: 'bike',5:'ambulance'}
 directionNumbers = {0: 'right', 1: 'down', 2: 'left', 3: 'up'}
 
 signalCoods = [(530, 230), (810, 230), (810, 570), (530, 570)]
